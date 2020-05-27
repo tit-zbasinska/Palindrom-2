@@ -1,131 +1,136 @@
 #include <iostream>
 #include <fstream>
-#include <windows.h>
-#include <stdio.h>
-#include <conio.h>
 #include <algorithm>
 
 using namespace std;
-int x=0, pa=0, npa=0;
-char w, n;
-string p, a;
-fstream o, z1, z2, z3;
+fstream odczyt;
+int a, b, c;
+int d=0;
+string e;
 
-bool sp (string s)
+bool sprawdzpali (string s1) //funkcja sprawdzajaca czy to jest palingram.
 {
-    int dl=s.size();
-    for ( int i=0; i<dl/2; i++)
-        if(s[i]!=s[dl-i-1])
+    int dl=s1.size();
+    for (int i=0; i<dl/2; i++)
+        if (s1[i]!=s1[dl-i-1])
             return false;
     return true;
 }
 
+void sprawdzb()
+{
+    odczyt.open("dane.txt",ios::in);
+
+    while(odczyt.good())
+    {
+        odczyt >> e;
+        if(sprawdzpali(e)==true && e[0]=='B')
+        {
+
+            a++;
+            d++;
+            cout <<d<<"."<< e<< endl;
+        }
+    }
+    cout <<"Liczba ich wynosi:"<<a;
+    odczyt.close();
+}
+
+void sprawdzparzyste()
+{
+    odczyt.open("dane.txt",ios::in);
+
+    while(odczyt.good())
+    {
+        odczyt >> e;
+        if(sprawdzpali(e)==true)
+        {
+            int dlugosc=e.length();
+            if(dlugosa%2==0)
+            {
+                d++;
+                cout <<d<<"."<< e << endl;
+                a++;
+
+            }
+        }
+    }
+    cout <<"Liczba ich wynosi:"<<c;
+    odczyt.close();
+}
+
+void sprawdznieparzyste()
+{
+    odczyt.open("dane.txt",ios::in);
+
+    while(odczyt.good())
+    {
+        odczyt >> e;
+        if(sprawdzpali(e)==true)
+        {
+            int dlugosc=e.length();
+            if(dlugosc%2!=0)
+            {
+                d++;
+                cout <<d<<"."<< e << endl;
+                a++;
+
+            }
+        }
+    }
+    cout <<"Liczba ich wynosi:"<<a;
+    odczyt.close();
+}
+
+void sprawdztrzya()
+{
+    odczyt.open("dane.txt",ios::in);
+
+    while(odczyt.good())
+    {
+        odczyt >> e;
+        if(sprawdzpali(e)==true)
+        {
+            if(count(e.begin(), e.end(), 'E')>=3)
+            {
+                d++;
+                cout <<k<<"."<< e
+             << endl;
+                a++;
+
+            }
+        }
+    }
+    cout<<"Liczba ich wynosi:"<<a;
+    odczyt.close();
+}
+
+
 int main()
 {
-    while (true)
+    cout << "Wprowadz 1 jesli chcesz zobaczyc palindromy zaczynajace sie na Z jak Zuzanna i ich liczbe" << endl;
+    cout << "Wprowadz 2 jesli chcesz zobaczyc palindromy parzyste literami i ich liczbe" << endl;
+    cout << "Wprowadz 3 jesli chcesz zobaczyc palindromy nieparzyste literami i ich liczbe" << endl;
+    cout << "wprowadz 4 jesli chcesz zobaczyc palondromy, ktore zawieraja trzy lub wiecej litery A i ich liczbe" << endl;
+    cout << "Wprowadz liczbe z menu:";
+    cin >> w;
+    switch(w)
     {
-        cout << "================================================================="<<endl;
-        cout << "1-Palindromy zaczynajace sie na pierwsza litere waszego imienia" << endl;
-        cout << "2-Liczba palindromow przystych i nie parzystych"<<endl;
-        cout << "3-Palindromy z litera A wystepujaca conajmniej 3 razy"<<endl;
-        cout << "4-Wylacz program" << endl;
-        cout << "================================================================="<<endl;
-        w=getch();
-        switch (w)
-        {
-        case '1':
-            //--------------Wprowadzanie imienia---------------
-            o.open("dane.txt", ios::in);
-            z1.open("wynik1.txt", ios::out | ios::trunc);
-            cout << "Podaj swoje imie : ";
-            cin >> p;
-            //-------------------------------------------------
-
-            //--------------Warunki i palindromy---------------
-            x=0;
-            while(o.good())
-            {
-                o>>a;
-                if (a[0]==p[0])
-                {
-                    if(sp(a)==true)
-                    {
-                        cout<<a<<endl;
-                        z1<<a<<endl;
-                        x++;
-                    }
-
-                }
-
-
-            }
-            if (x==0)
-            {
-                cout<< "Brak palindromow spelniajacych warunek"<<endl;
-                z1<<"Brak palindromow spelniajacych warunek";
-            }
-            //--------------------------------------------------
-
-            o.close();
-            z1.close();
-
-            break;
-
-        case '2':
-            o.open("dane.txt", ios::in);
-            z2.open("wynik2.txt", ios::out);
-            while(o.good())
-            {
-                o>>a;
-                if(sp(a)==true)
-                {
-                    x=a.length();
-                    if(x%2==0)
-                        pa++;
-                    else
-                        npa++;
-                }
-            }
-            cout<<"Parzystych palindromow jest: "<<pa<<endl;
-            cout<<"Nie parzystych palindromów jest: "<<npa<<endl;
-            z2<<"Parzystych palindromow jest: "<<pa<<endl;
-            z2<<"Nie parzystych palindromów jest: "<<npa<<endl;
-            o.close();
-            z2.close();
-            pa=0;
-            npa=0;
-            break;
-
-        case '3':
-        {
-            o.open("dane.txt", ios::in);
-            z3.open("wynik3.txt", ios::out);
-            while(o.good())
-            {
-                o>>a;
-                if(sp(a)==true)
-                {
-                    if(count(a.begin(),a.end(), 'A')>=3)
-                    {
-                        cout<<a<<endl;
-                        z3<<a<<endl;
-                    }
-                }
-            }
-            o.close();
-            z3.close();
-        }
+    case 1:
+        sprawdzb();
         break;
-        case '4':
-            exit(0);
-            break;
-        default:
-            cout<<"Niepoprawna wartosc"<<endl;
-            break;
-        }
-        getchar();
-        getchar();
-        system("cls");
+    case 2:
+        sprawdzparzyste();
+        break;
+    case 3:
+        sprawdznieparzyste();
+        break;
+    case 4:
+        sprawdztrzya();
+        break;
+    default:
+        cout << "Wybrales zly numer!!!";
+        break;
     }
     return 0;
 }
